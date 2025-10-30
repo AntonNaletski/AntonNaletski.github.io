@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="fi">
+
+<head>
+    <meta charset="UTF-8">
+    <title>verkkoprofiilisivu</title>
+    <link href="verkkoprofiilisivu.css" rel="stylesheet" 
+</head>
+
+<body>
+    <h1>Anton Naletski</h1>
+    <div class="info">
+        <div>
+            <p>
+                Syntymäpäivä 30.06.1983 <br>
+                Somerontie 14 A 3 <br>
+                00550 Helsinki <br>
+                Puh. 0453205559 <br>
+                anton.bessonov12@gmail.com
+            </p>
+        </div>
+        <div>
+            <img src="75990002.JPG" alt="kuva">
+        </div>
+    </div>
+
+    <div class="minusta">
+        <p>Olen vastuullinen ja ystävällinen. Minulla on pitkä kokemus asiakaspalvelusta ja ravintola-alalta, mikä on kehittänyt organisointitaitojani, 
+            tiimityöskentelyäni ja ongelmanratkaisukykyäni. Olen myös tottunut oppimaan uusia asioita nopeasti ja omaksumaan uusia työtehtäviä tehokkaasti. <br> <br>
+            Tällä hetkellä kehitän taitojani IT-alalla, erityisesti ohjelmistotestauksessa (QA). Haluan yhdistää tarkkuuteni, 
+            analyyttisen ajatteluni ja käytännön kokemukseni laadunvarmistuksen tehtävissä. <br> <br>
+            Vapaa-ajallani pidän itseni aktiivisena harrastamalla pyöräilyä ja uintia. 
+            Lisäksi matkustaminen on yksi suurimmista intohimoistani.</p>
+    </div>
+
+    <nav>
+        <ul>
+            <li><a href="#työkokemus">Työkokemus</a></li>
+            <li><a href="#koulutus">Koulutus</a></li>
+            <li><a href="#kielet">Kielet</a></li>
+            <li><a href="#kansalaisuus">Kansalaisuus</a></li>
+            <li><a href="#vahvuudet">Vahvuudet</a></li>
+            <li><a href="#github">Github</a></li>
+        </ul>
+    </nav>
+
+    <section class="työkokemus" id="työkokemus">
+        <pre class="mermaid">
+        gantt
+        title Työkokemus
+        dateFormat MM-YYYY
+        axisFormat  %Y-%m
+        section Harjoittelu
+            Intersport     : 01-2020, 6M
+        section Työ
+            Paras Burgeri  : 06-2020, 12M
+            Huuva Oy Suomi : 12-2021, 46M
+        </pre>
+    </section>
+
+    <section class="koulutus" id="koulutus">
+        <h3>Koulutus</h3>
+        <h4>Psykologi, psykologian opetaja<br> 
+            Psykologian ja kasvatustieteen opinnot</h4>
+        <p>09.2009-06.2015</p>
+    </section>
+
+    <section class="kielet" id="kielet">
+        <h3>Kielet</h3>
+        <ul>
+            <li>Suomi</li>
+            <li>Englanti</li>
+            <li>Valko-Venäjä</li>
+            <li>Venäjä</li>
+        </ul>
+    </section>
+
+    <section class="kansalaisuus" id="kansalaisuus">
+        <h3>Kansalaisuus</h3>
+        <p>Suomi, Valko-Venäjä</p>
+    </section>
+
+    <section class="vahvuudet" id="vahvuudet">
+        <h3>Vahvuudet ja taidot</h3>
+        <ul>
+            <li>Vastuullinen ja huolellinen työntekijä, joka tekee työnsä tarkasti ja luotettavasti.</li>
+            <li>Pystyn työskentelemään rauhallisesti myös kiireessä.</li>
+            <li>Ystävällinen, yhteistyökykyinen.</li>
+            <li>Laaja kokemus asiakaspalvelusta ja ravintola-alalta, vahvat organisointi- ja tiimityötaidot.</li>
+            <li>Nopea oppimaan uusia asioita ja omaksumaan erilaisia työtehtäviä.</li>
+        </ul>
+    </section>
+
+    <section id="github" class="github">
+        <h3>GitHub-tiedot</h3>
+        <p id="github_virhe"></p>
+        <ul>
+            <li>Käyttäjä: <span id="github_nimi"></span></li>
+            <li>Luotu: <span id="github_luotu"></span></li>
+            <li>Julkiset repositoriat: <span id="github_repos"></span></li>
+            <li>Seuraajat: <span id="github_seuraajat"></span></li>
+            <li>Seurattuja: <span id="github_seuratut"></span></li>
+            <li><a id="github_linkki" href="#" target="blank">Avaa GitHub-profiili</a></li>
+        </ul>
+    </section>
+
+    <script>
+        async function fetchGitHubData() {
+            const username = "pekkatapio";
+            const url = `https://api.github.com/users/${username}`;
+            try {
+                const response = await fetch(url);
+                const data = await response.json();
+
+                document.getElementById("github_nimi").textContent = data.login;
+                document.getElementById("github_repos").textContent = data.public_repos;
+                document.getElementById("github_seuraajat").textContent = data.followers;
+                document.getElementById("github_seuratut").textContent = data.following;
+                document.getElementById("github_luotu").textContent = new Date(data.created_at).toLocaleDateString();
+                document.getElementById("github_linkki").href = data.html_url;
+                document.getElementById("github_linkki").style.color = "tomato";
+            } catch (error) {
+                document.getElementById("github_virhe").textContent = "Tietojen lataus epäonnistui.";
+                console.error("Virhe:", error);
+            }
+        }
+        fetchGitHubData();
+    </script>
+
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true });
+    </script>
+</body>
+</html>
